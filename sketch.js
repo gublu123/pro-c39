@@ -13,19 +13,16 @@ var gameOverImg,restartImg;
 var jumpSound , checkPointSound, dieSound;
 
 function preload(){
-  trex_running = loadAnimation("trex1.png","trex3.png","trex4.png");
-  trex_collided = loadAnimation("trex_collided.png");
+  trex_running = loadImage("Shiva.png");
+  trex_collided = loadImage("shiva_collided.png");
   
   groundImage = loadImage("ground2.png");
   
   cloudImage = loadImage("cloud.png");
   
-  obstacle1 = loadImage("obstacle1.png");
-  obstacle2 = loadImage("obstacle2.png");
-  obstacle3 = loadImage("obstacle3.png");
-  obstacle4 = loadImage("obstacle4.png");
-  obstacle5 = loadImage("obstacle5.png");
-  obstacle6 = loadImage("obstacle6.png");
+  obstacle1 = loadImage("stone.png");
+  obstacle2 = loadImage("car.png");
+  
   
   restartImg = loadImage("restart.png")
   gameOverImg = loadImage("gameOver.png")
@@ -46,7 +43,7 @@ function setup() {
   trex.addAnimation("collided", trex_collided);
   
 
-  trex.scale = 0.5;
+  trex.scale = 0.25;
   
   ground = createSprite(200,180,400,20);
   ground.addImage("ground",groundImage);
@@ -70,8 +67,8 @@ function setup() {
   cloudsGroup = createGroup();
 
   
-  trex.setCollider("rectangle",0,0,trex.width,trex.height);
-  trex.debug = false;
+  trex.setCollider("rectangle",0,0, 30, 30);
+  trex.debug = true;
   
   score = 0;
   
@@ -79,7 +76,7 @@ function setup() {
 
 function draw() {
   
-  background(180);
+  background(0);
   //displaying score
   text("Score: "+ score, 500,50);
   
@@ -181,25 +178,17 @@ function spawnObstacles(){
    obstacle.velocityX = -(6 + score/100);
    
     //generate random obstacles
-    var rand = Math.round(random(1,6));
+    var rand = Math.round(random(1,2));
     switch(rand) {
       case 1: obstacle.addImage(obstacle1);
               break;
       case 2: obstacle.addImage(obstacle2);
               break;
-      case 3: obstacle.addImage(obstacle3);
-              break;
-      case 4: obstacle.addImage(obstacle4);
-              break;
-      case 5: obstacle.addImage(obstacle5);
-              break;
-      case 6: obstacle.addImage(obstacle6);
-              break;
       default: break;
     }
    
     //assign scale and lifetime to the obstacle           
-    obstacle.scale = 0.5;
+    obstacle.scale = 0.15;
     obstacle.lifetime = 300;
    
    //add each obstacle to the group
